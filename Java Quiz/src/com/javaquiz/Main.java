@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	public void attendQuiz() {
-		Database d = new Database();
-		d.conductQuiz();
-	}
+	
 
 	public static void main(String[] args) {
 		Student student = new Student();
@@ -31,7 +28,8 @@ public class Main {
 
 			switch (choice) {
 			case 1:
-				main.attendQuiz();
+				Database d = new Database();
+				d.conductQuiz();
 				break;
 
 			case 2:

@@ -93,10 +93,10 @@ public class Database {
 
 			}
 
-			System.out.println("***************************************\n YOUR SCORE IS : " + score + " out of 10 >> "
+			System.out.println("***************************************\nYOUR SCORE IS : " + score + " out of 10 >> "
 					+ calculateScore(score));
 			System.out.println("Correct Answers : " + correctAns);
-			System.out.println("Wrong Answers : " + incorrectAns + "\n***************************************\n\n\n");
+			System.out.println("Wrong   Answers : " + incorrectAns + "\n***************************************\n\n\n");
 
 			psi = con.prepareStatement("insert into studentrecord(id,Name)values(?,?)");
 			psi.setInt(1, s.studentId);
