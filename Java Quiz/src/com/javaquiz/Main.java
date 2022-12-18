@@ -22,6 +22,7 @@ public class Main {
 		System.out.println(" ******** WELCOME TO JAVA QUIZ ******** \n");
 		while (flag) {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			System.out.println("---------------Home Menu-------------------");
 			System.out.println("\nSelect your choice from below options : ");
 			System.out.println("    1. Attend Quiz");
 			System.out.println("    2. Fetch record of particular student");
@@ -51,6 +52,7 @@ public class Main {
 
 			}
 		}
+		sc.close();
 	}
 
 }
