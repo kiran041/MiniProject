@@ -1,7 +1,5 @@
 package com.javaquiz;
 
-
-
 import java.util.*;
 import java.sql.Connection;
 
@@ -14,23 +12,21 @@ public class Student {
 	int studentId;
 	String studentName;
 	Scanner sc = new Scanner(System.in);
+	Scanner sc2 = new Scanner(System.in);
 
 	public Student studentinfo() {
 
-		boolean flag = false;
-		Connection con =null;
-		PreparedStatement psr=null;
-		
-		List list = new ArrayList();
+		boolean flag = true;
+		Connection con = null;
+		PreparedStatement psr = null;
+
+		List<Integer> list = new ArrayList<Integer>();
 
 		try {
 			ConnectionTest connectionTest = new ConnectionTest();
 			con = connectionTest.getConnectionDetails();
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/questionsdatabase", "root",
-//					"Kiran@041");
-			 psr = con.prepareStatement("select id from studentrecord");
+
+			psr = con.prepareStatement("select id from studentrecord");
 
 			ResultSet rs = psr.executeQuery();
 
@@ -42,7 +38,7 @@ public class Student {
 		}
 
 		Student stud = new Student();
-		do {
+		while (flag) {
 
 			System.out.print("Enter your id :");
 
@@ -53,82 +49,77 @@ public class Student {
 				flag = true;
 
 			}
-		} while (flag);
+		}
 
 		System.out.print("Enter your name :");
-		stud.studentName = sc.next();
+		stud.studentName = sc2.nextLine();
 
 		return stud;
 	}
-	
+
 	public void studentList() {
 		boolean isAnyoneAttended = false;
-		Connection con =null;
-		PreparedStatement psr=null;
-		
+		Connection con = null;
+		PreparedStatement psr = null;
+
 		try {
 
 			ConnectionTest connectionTest = new ConnectionTest();
 			con = connectionTest.getConnectionDetails();
-			 psr = con.prepareStatement("select * from studentrecord ");
+			psr = con.prepareStatement("select * from studentrecord ");
 
 			ResultSet rs = psr.executeQuery();
 
 			while (rs.next()) {
-				isAnyoneAttended= true;
-				System.out.println("Id    : "+rs.getInt(1));
-				System.out.println("Name  : "+rs.getString(2));
-				System.out.println("Score : "+rs.getInt(3));
+				isAnyoneAttended = true;
+				System.out.println("Id    : " + rs.getInt(1));
+				System.out.println("Name  : " + rs.getString(2));
+				System.out.println("Score : " + rs.getInt(3));
 				System.out.println("-------------------");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		if(isAnyoneAttended == false) {
+
+		if (isAnyoneAttended == false) {
 			System.out.println("\nNo records to Display !!!!!");
 			System.out.println("Still no one attended the Quiz....\n");
 		}
 	}
+
 	public void particularStudentDetails() {
-		boolean availableId=false;
-		
-		
-	System.out.println("Enter the id of student");
-	   int id = sc.nextInt();
-	   Connection con =null;
-		PreparedStatement psr=null;
+		boolean availableId = false;
+
+		System.out.println("Enter the id of student");
+		int id = sc.nextInt();
+		Connection con = null;
+		PreparedStatement psr = null;
 		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");/ 
-//
-//			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/questionsdatabase", "root",
-//					"Kiran@041");
+
 			ConnectionTest connectionTest = new ConnectionTest();
 			con = connectionTest.getConnectionDetails();
-			 psr = con.prepareStatement("select * from studentrecord");
+			psr = con.prepareStatement("select * from studentrecord");
 
 			ResultSet rs = psr.executeQuery();
 
 			while (rs.next()) {
-			    if(rs.getInt(1)==id) {
-			    	
-				System.out.println("Id    : "+rs.getInt(1));
-				System.out.println("Name  : "+rs.getString(2));
-				System.out.println("Score : "+rs.getInt(3));
-				System.out.println("\n");
-				availableId = true;
-				break;
-			    }
-			    
-				
+				if (rs.getInt(1) == id) {
+
+					System.out.println("Id    : " + rs.getInt(1));
+					System.out.println("Name  : " + rs.getString(2));
+					System.out.println("Score : " + rs.getInt(3));
+					System.out.println("\n");
+					availableId = true;
+					break;
+				}
+
 			}
-			if(availableId == false) {
-		    	System.out.println("Sorry !!!! Given Id is not register with us...\n");
-		    }
+			if (availableId == false) {
+				System.out.println("Sorry !!!! Given Id is not register with us...\n");
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
 }
-

@@ -1,9 +1,5 @@
 package com.javaquiz;
 
-
-
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -49,24 +45,22 @@ public class Database {
 
 	}
 
-	public void callingDatabase() {
+	public void conductQuiz() {
 		Student s = new Student();
 		s = s.studentinfo();
 		PreparedStatement psr = null;
 		PreparedStatement psi = null;
 		Connection con = null;
 		int score = 0;
+		int correctAns = 0;
+		int incorrectAns = 0;
+
 		int i = 1;
 
 		try {
 
 			ConnectionTest connectionTest = new ConnectionTest();
 			con = connectionTest.getConnectionDetails();
-
-//			psi = con.prepareStatement("insert into studentrecord(id,Name)values(?,?)");
-//			psi.setInt(1, s.studentId);
-//			psi.setString(2, s.studentName);
-//			psi.executeUpdate();
 
 			psr = con.prepareStatement("select * from questions ORDER BY RAND()");
 
@@ -88,16 +82,21 @@ public class Database {
 					System.out.println("CORRECT ANSWER\n");
 					score++;
 					i++;
+					correctAns++;
 
 				} else {
 					System.out.println("SORRY ,INCORRECT ANSWER \n");
 					i++;
+					incorrectAns++;
+
 				}
 
 			}
 
 			System.out.println("***************************************\n YOUR SCORE IS : " + score + " out of 10 >> "
-					+ calculateScore(score) + "\n***************************************\n\n\n");
+					+ calculateScore(score));
+			System.out.println("Correct Answers : " + correctAns);
+			System.out.println("Wrong Answers : " + incorrectAns + "\n***************************************\n\n\n");
 
 			psi = con.prepareStatement("insert into studentrecord(id,Name)values(?,?)");
 			psi.setInt(1, s.studentId);
@@ -122,4 +121,3 @@ public class Database {
 	}
 
 }
-
